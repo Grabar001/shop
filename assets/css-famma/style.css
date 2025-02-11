@@ -1061,7 +1061,7 @@ form input {
     width: 100%;
     font-size: 14px;
     margin-bottom: 20px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     line-height: normal;
 }
 
@@ -1073,7 +1073,7 @@ form textarea {
     min-height: 150px;
     font-size: 14px;
     margin-bottom: 20px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     line-height: normal;
 }
 
@@ -1082,7 +1082,7 @@ form input[type="submit"] {
     padding: 15px 45px;
     width: auto;
     font-size: 16px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     line-height: normal;
     margin: 0 auto;
     display: flex;
@@ -1120,7 +1120,20 @@ form input[type="submit"]:focus {
     font-weight: 400;
 }
 
-http://kute-themes.com/html/boutique/html/index.html
+.border-danger {
+  border: 1px solid #f7444e;
+}
+
+.text-color-danger {
+  color: #f7444e;
+  font-size: 0.7rem;
+}
+
+.background-danger {
+  color: #f7444e;
+}
+
+https://kute-themes.com/html/boutique/html/index.html
 https://template.hasthemes.com/noraure/noraure/index.html
 https://preview.hasthemes.com/xoss-preview/xoss/index.html
 
