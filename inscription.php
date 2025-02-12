@@ -2,55 +2,17 @@
 require_once 'include/init.php';
 
 
-$errors = []; // Массив для хранения ошибок
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//   $email = trim($_POST['email'] ?? ''); // Если email не передан, будет пустая строка
-//   $password = trim($_POST['password'] ?? ''); // Если password не передан, будет пустая строка
-//   $repeat_password = trim($_POST['repeat_password'] ?? ''); // Если repeat_password не передан, будет пустая строка 
-//   // Проверяем, введён ли email
-//   if (empty($_POST['email'])) {
-//     $errors['email'] = "L'adresse e-mail est requise.";
-//   }
-//   // Проверка: является ли email корректным
-//   elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//     $errors['email'] = "❌ L'adresse e-mail n'est pas valide.";
-//   }
-//   if (empty($password)) {
-//     $errors['password'] = "❌ Le mot de passe est requis.";
-//   }
-//   if(empty($repeat_password)) {
-//     $errors['repeat_password'] = "❌ Veuillez répéter votre mot de passe.";
-//   }
-//   if (!empty($password) && !empty($repeat_password) && $password !== $repeat_password) {
-//     $errors['password'] = "❌ Les mots de passe ne correspondent pas.";
-//   }
-//   // Если есть ошибки, выводим их
-//   if (!empty($errors)) {
-//     echo "<div style='color: red;'><ul>";
-//     foreach ($errors as $error) {
-//       echo "<li>$error</li>";
-//     }
-//     echo "</ul></div>";
-//   } else {
-//     echo "<div style='color: green;'>Formulaire soumis avec succès !</div>";
-//   }
-// }
 
-// <!-- /*
-// 1. Contrôler que l'on réceptionne bien toutes les données saisies dans le formulaire en PHP
-// 2. Contrôler la disponibilite de l'email (select + rowCount)
-// 3. Afficher un message d'erreur si le champs email est vide
-// 4. Controler la validité de l'email (filter_var)
-// 5. Afficher un message si le champ mot de passe est vide
-// 6. Controler que les mots de passe correspondent
-// */ -->
+if(userConnected()) {
+  header('location:profil.php');
+}
 
 
 // 1. Contrôler que l'on réceptionne bien toutes les données saisies dans le formulaire en PHP
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
+// echo '<pre>';
+// print_r($_POST);
+// echo '</pre>';
 
 if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
   //2. Contrôler la disponibilite de l'email (select + rowCount)
@@ -79,6 +41,32 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 } elseif ($_POST['password'] !== $_POST['repeat_password']) {
   $errorPassword = '<small class="text-color-danger">Les mots de passe ne correspondent pas.</small>';
 } 
+
+// Exo: Si l'utilisateur a correctement rempli le formulaire, executer la requete d'insertion en BDD (prepare + bindValue + execute), on redige l'internaute vers la page connexion.php
+
+if (!isset($errorEmail) && !isset($errorPassword)) {
+  //Le mot de passe n'est jamais conserve en clair dans la base de donnes
+  //password_hush permet de generer une clé de hachage pour le mot de passe
+  $data = $connect_db->prepare("INSERT INTO user (password, firstName, lastName, email, city, zipcode, address, roles) 
+VALUES (:password, :firstName, :lastName, :email, :city, :zipcode, :address, :roles)");
+
+$data->bindValue(':roles', 'user', PDO::PARAM_STR);
+  $data->bindValue(':firstName', $_POST['firstName'], PDO::PARAM_STR);
+  $data->bindValue(':lastName', $_POST['lastName'], PDO::PARAM_STR);
+  $data->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
+  $data->bindValue(':city', $_POST['city'], PDO::PARAM_STR);
+  $data->bindValue(':zipcode', $_POST['zipcode'], PDO::PARAM_STR);
+  $data->bindValue(':address', $_POST['address'], PDO::PARAM_STR);
+  $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+$data->bindValue(':password', $hashed_password, PDO::PARAM_STR);
+  $data->execute();
+
+  // On stock dans le fichier de session de l'utilisateur, le fichier de session est stocke cote serveur et accessible via la superglobale $°SESSION et accesible sur n'importe quelle page du site, on stock ici un message (message flash) dans le fichier de session de l'utilisateur
+  $_SESSION['msgRegisterValidate'] = '<div class="bg-success p-3 text-white text-center">Votre inscription est valide. Vous pouvez des a present vous connecter</div>';
+
+  header('location:connexion.php');
+  exit();
+}
 }
 
 require_once 'include/header.php';
