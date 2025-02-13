@@ -239,7 +239,7 @@ if (!adminConnected()) {
                     </span>
                     <span class="file-label"> Choose un fichier</span>
                   </span>
-                  <span class="file-name"> Parcourir </span>
+                  <span class="file-name"> Screen Shot 2017-07-29 at 15.54.25.png </span>
                 </label>
               </div>
             </div>
