@@ -4,7 +4,10 @@ require_once ('../include/init.php');
 if (!adminConnected()) {
     header('location: ' . URL . ' index.php');
 }
-// require_once 'include/header.php';
+
+
+
+require_once('header.php');
 ?>
 
     <section class="section is-title-bar">

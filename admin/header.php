@@ -11,6 +11,7 @@
 
   <!-- Bulma is included -->
   <link rel="stylesheet" href="../assets/css/main.min.css">
+  
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="https://fonts.gstatic.com" />

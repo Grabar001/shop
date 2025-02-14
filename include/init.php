@@ -11,7 +11,7 @@ $connect_db = new PDO('mysql:host=localhost;port=8889;dbname=shop', 'root', 'roo
 session_start();
 
 // -------- CHEMIN
-define('RACINE_SITE', $_SERVER['DOCUMENT_ROOT'] . '/');
+define('RACINE_SITE', $_SERVER['DOCUMENT_ROOT'] . '/shop/');
 // echo '<pre>'; print_r(RACINE_SITE); echo '</pre>';
 // Cette constante retourne le chemin physique du dossier htdocs sur le serveur, de notre dossier 'shop' sur le serveur.
 //Lors de lenregistrement d'image/photos, nous aurons besoin du chemin complet dossier images pour enregistrer la photo dans le bon dossier.

@@ -1,5 +1,5 @@
 <?php
-require_once 'include/init.php';
+require_once(__DIR__ . '/init.php');
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +30,7 @@ require_once 'include/init.php';
   <link href="assets/css-famma/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="assets/css-famma/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 
 <body>
