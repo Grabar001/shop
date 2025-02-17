@@ -17,7 +17,7 @@ define('RACINE_SITE', $_SERVER['DOCUMENT_ROOT'] . '/shop/');
 //Lors de lenregistrement d'image/photos, nous aurons besoin du chemin complet dossier images pour enregistrer la photo dans le bon dossier.
 // echo RACINE_SITE . 'shop/assets/images/product.jpg';
 
-define('URL', 'http://localhost:8889/shop/');
+define('URL', 'http://localhost:8888/shop/');
 // <img src="html://localhost:8889/shop/assets/images/product.jpg">
 // <img src="URL . assets/images/product.jpg" alt="">
 // <img src=URL . assets/images/product.jpg alt="">

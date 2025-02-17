@@ -6,36 +6,40 @@ require_once(__DIR__ . '/init.php');
 <html>
 
 <head>
-  <!-- Basic -->
+
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
+
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
   <link rel="shortcut icon" href="assets/images-famma/favicon.png" type="" />
   <title>Famms - Fashion HTML Template</title>
-  <!-- bootstrap core css -->
+
   <link
     rel="stylesheet"
     type="text/css"
     href="assets/css-famma/bootstrap.css" />
-  <!-- font awesome style -->
+
   <link href="assets/css-famma/font-awesome.min.css" rel="stylesheet" />
-  <!-- Custom styles for this template -->
+
   <link href="assets/css-famma/style.css" rel="stylesheet" />
-  <!-- responsive style -->
+
   <link href="assets/css-famma/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 
 <body>
+  <?php
+  echo '<pre>'; print_r($_SERVER); echo '</pre>';
+  ?>  
   <div class="hero_area">
-    <!-- header section strats -->
+
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container">
@@ -52,49 +56,50 @@ require_once(__DIR__ . '/init.php');
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
-              <li class="nav-item active">
+              <li class="nav-item <?php activeLink('/shop/index.php') ?>">
                 <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item <?php activeLink('/shop/product.php') ?>">
                 <a class="nav-link" href="product.php">Boutique</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item <?php activeLink('/shop/contact.php') ?>">
                 <a class="nav-link" href="contact.php">Contact</a>
               </li>
               <?php if (!userConnected()): ?>
-  <li class="nav-item">
-    <a class="nav-link" href="connexion.php">Identifiez-vous</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="inscription.php">Inscription</a>
-  </li>
-<?php else: ?> <!-- ✅ Теперь это else -->
-  <li class="nav-item">
-    <a class="nav-link" href="profil.php">Mon compte</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="connexion.php?action=logout">Déconnexion</a>
-  </li>
-<?php endif; ?>
-              <?php if (adminConnected()): ?>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown"
-                  role="button"
-                  aria-haspopup="true"
-                  aria-expanded="true">
-                  <span class="nav-label">BackOffice</span><span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="admin/gestion_boutique.php">Boutique</a></li>
-                  <li><a href="admin/gestion_commande.php">Commandes</a></li>
-                  <li><a href="admin/gestion_user.php">Utilisateurs</a></li>
-                </ul>
-              </li>
+                <li class="nav-item <?php activeLink('/shop/connexion.php') ?>">
+                  <a class="nav-link" href="connexion.php">Identifiez-vous</a>
+                </li>
+                <li class="nav-item <?php activeLink('/shop/inscription.php') ?>">
+                  <a class="nav-link" href="inscription.php">Inscription</a>
+                </li>
+              <?php else: ?> 
+                <li class="nav-item <?php activeLink('/shop/profil.php') ?>">
+                  <a class="nav-link" href="profil.php">Mon compte</a>
+                </li>
+                <li class="nav-item <?php activeLink('/shop/connexion.php') ?>">
+                  <a class="nav-link" href="connexion.php?action=logout">Déconnexion</a>
+                </li>
               <?php endif; ?>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+              <?php if (adminConnected()): ?>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    data-toggle="dropdown"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="true">
+                    <span class="nav-label">BackOffice</span><span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="admin/gestion_boutique.php">Boutique</a></li>
+                    <li><a href="admin/gestion_commande.php">Commandes</a></li>
+                    <li><a href="admin/gestion_user.php">Utilisateurs</a></li>
+                  </ul>
+                </li>
+              <?php endif; ?>
+
+              <li class="nav-item d-flex align-items-start <?php activeLink('/shop/panier.php') ?>">
+                <a class="nav-link" href="panier.php">
                   <svg
                     version="1.1"
                     id="Capa_1"
@@ -145,15 +150,26 @@ require_once(__DIR__ . '/init.php');
                     <g></g>
                   </svg>
                 </a>
-              </li>
-              <form class="form-inline">
+                
+
+                <!-- //Exo  Afficher le nombre de produits dans le panier de la session -->
+                <?php
+                $nbProducts = 0;
+                if (isset($_SESSION['cart']))
+                  $nbProducts = array_sum($_SESSION['cart']['quantity']);
+                ?>
+                <span class="badge bg-success text-write mt-1"><?= $nbProducts ?></span>
+                </li>
+              
+
+
+              <!-- <form class="form-inline">
                 <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
                   <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
-              </form>
+              </form> -->
             </ul>
           </div>
         </nav>
       </div>
     </header>
-       <!-- end header section -->

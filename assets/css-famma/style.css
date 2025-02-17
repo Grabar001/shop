@@ -1129,6 +1129,10 @@ form input[type="submit"]:focus {
   font-size: 0.7rem;
 }
 
+.error-text-color {
+  color: #f7444e;
+}
+
 .background-danger {
   color: #f7444e;
 }
@@ -1143,6 +1147,11 @@ form input[type="submit"]:focus {
   overflow: hidden;
   box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.2);
   border: solid #fff 10px;
+}
+
+.picture_product{
+  width: 50%;
+  height: 115px;
 }
 
 https://kute-themes.com/html/boutique/html/index.html

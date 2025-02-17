@@ -2,12 +2,14 @@
 require_once 'include/init.php';
 
 // Exo 1 : Afficher les produits stockes en BDD
-$statement = $connect_db->query("SELECT * FROM product");
-$product = $statement->fetchAll();
 // 1 selectionner l'ensemble de la table prouct
 // 2 Excecuter une methode ( fetch / fetchAll )  pour rendre le resultat exploitable sous forme d'Array
 // 3 Traitement pour l'affichage ( boucle )
 // 4 Prevoir un lien qui redirige vers la page fiche_produit.php pour chaque produit, avec envoi de l'id_produit dans l'url
+
+$data = $connect_db->query("SELECT id_product, title, picture, price FROM product");
+$produits = $data->fetchAll(PDO::FETCH_ASSOC);
+echo '<pre>'; print_r($produits); echo '</pre>';  // debug
 require_once 'include/header.php';
 ?>
   <!-- inner page section -->
@@ -30,21 +32,21 @@ require_once 'include/header.php';
         <h2>Nos <span>produits</span></h2>
       </div>
       <div class="row">
-        <?php foreach ($produits as $produit) : ?>
+        <?php foreach ($produits as $item) : ?>
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="box">
               <div class="option_container">
                 <div class="options">
-                  <a href="" class="option1"><?= htmlspecialchars($produit['nom']); ?></a>
-                  <a href="" class="option2">Acheter maintenant</a>
+                  <a href="fiche_produit.php?id=<?= $item['id_product'] ?>" class="option1">En savoir plus</a>
+                  <a href="fiche_produit.php?id=<?= $item['id_product'] ?>" class="option2">Acheter maintenant</a>
                 </div>
               </div>
               <div class="img-box">
-                <img src="<?= htmlspecialchars($produit['image']); ?>" alt="" />
+              <img src="<?= $item['picture'] ?>" alt="<?= $item['title'] ?>" />
               </div>
               <div class="detail-box">
-                <h5><?= htmlspecialchars($produit['nom']); ?></h5>
-                <h6><?= number_format($produit['prix'], 2, ',', ' ') ?>€</h6>
+                <h5><?= $item['title'] ?></h5>
+                <h6><?= $item['title']  ?>€</h6>
               </div>
             </div>
           </div>
