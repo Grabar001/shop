@@ -1,5 +1,6 @@
 <?php 
 require_once('../include/init.php');
+require_once('header.php');
 $_SESSION['msg'] = false;
 // Si l'utilisateur n'est pas connecté ou est connecté mais non admin, on le redirige vers la page index.php
 

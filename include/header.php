@@ -35,9 +35,9 @@ require_once(__DIR__ . '/init.php');
 </head>
 
 <body>
-  <?php
+  <!-- <?php
   echo '<pre>'; print_r($_SERVER); echo '</pre>';
-  ?>  
+  ?>   -->
   <div class="hero_area">
 
     <header class="header_section">

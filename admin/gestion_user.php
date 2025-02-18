@@ -1,5 +1,6 @@
 <?php
 require_once ('../include/init.php');
+require_once('header.php');
 
 if (!adminConnected()) {
     header('location: ' . URL . ' index.php');
